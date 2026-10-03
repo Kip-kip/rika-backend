@@ -37,8 +37,14 @@ def save_design():
 
     # Normalize source to a valid Rika Design source_tool option
     src = (data.get("source") or "Website").strip()
-    valid_sources = ["Calculator", "Designer", "Studio", "House Map", "Measurement", "Design Studio"]
+    valid_sources = ["Calculator", "Designer", "Studio", "House Map", "Measurement", "Design Studio", "Find Your Window"]
     source_tool = src if src in valid_sources else "Designer"
+
+    # Rika Lead.source has a fixed option list; map the tool tag into a valid lead source
+    # ("Find Your Window" is a real option; anything else falls back to Website).
+    lead_source = source_tool if source_tool in ("Calculator", "Design Studio", "Find Your Window") else "Website"
+    if (data.get("source") or "").strip() in ("Buying Guide", "WhatsApp", "Phone", "Referral"):
+        lead_source = (data.get("source") or "Website").strip()
 
     # --- Rika Design record (the artifact) ---
     design_doc = frappe.get_doc({
@@ -83,7 +89,7 @@ def save_design():
             "finish": (config.get("finish") or "").strip() or None,
             "glass": (config.get("glass") or "").strip() or None,
             "notes": (config.get("notes") or "").strip() or None,
-            "source": (data.get("source") or "Website").strip() or "Website",
+            "source": lead_source,
             "status": "New",
             "design_config": design_name,
             "created_from": "save_design",

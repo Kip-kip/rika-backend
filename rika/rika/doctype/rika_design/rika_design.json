@@ -37,7 +37,7 @@
       "fieldname": "source_tool",
       "fieldtype": "Select",
       "label": "Source Tool",
-      "options": "Calculator\nDesigner\nStudio\nHouse Map\nMeasurement\nDesign Studio",
+      "options": "Calculator\nDesigner\nStudio\nHouse Map\nMeasurement\nDesign Studio\nFind Your Window",
       "width": "Half"
     },
     {

@@ -1,0 +1,139 @@
+{
+  "name": "Rika Lead",
+  "module": "Rika",
+  "description": "A lead captured from the Rika website (quote request, calculator, or WhatsApp).",
+  "type": "Document",
+  "fields": [
+    {
+      "fieldname": "first_name",
+      "fieldtype": "Data",
+      "label": "First Name",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "last_name",
+      "fieldtype": "Data",
+      "label": "Last Name"
+    },
+    {
+      "fieldname": "phone",
+      "fieldtype": "Data",
+      "label": "Phone",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "email",
+      "fieldtype": "Data",
+      "label": "Email"
+    },
+    {
+      "fieldname": "location",
+      "fieldtype": "Data",
+      "label": "Location",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "window_type",
+      "fieldtype": "Data",
+      "label": "Window Type"
+    },
+    {
+      "fieldname": "quantity",
+      "fieldtype": "Int",
+      "label": "Quantity"
+    },
+    {
+      "fieldname": "width_cm",
+      "fieldtype": "Float",
+      "label": "Width (cm)"
+    },
+    {
+      "fieldname": "height_cm",
+      "fieldtype": "Float",
+      "label": "Height (cm)"
+    },
+    {
+      "fieldname": "finish",
+      "fieldtype": "Data",
+      "label": "Finish"
+    },
+    {
+      "fieldname": "glass",
+      "fieldtype": "Data",
+      "label": "Glass"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Text",
+      "label": "Notes"
+    },
+    {
+      "fieldname": "source",
+      "fieldtype": "Select",
+      "label": "Source",
+      "options": "Website\nCalculator\nWhatsApp\nPhone\nReferral\nBuying Guide\nFind Your Window",
+      "default": "Website",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "New\nContacted\nQuoted\nWon\nLost\nNo Response",
+      "default": "New",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "lead_value",
+      "fieldtype": "Currency",
+      "label": "Estimated Value"
+    }
+  ],
+  "track_changes": 1,
+  "doctype": "DocType",
+  "issingle": 0,
+  "istable": 0,
+  "istState": 0,
+  "modified": "2026-10-02 06:00:00",
+  "owner": "Administrator",
+  "creation": "2026-10-02 05:00:00",
+  "modified_by": "Administrator",
+  "autoname": "hash",
+  "engine": "InnoDB",
+  "field_order": [
+    "first_name",
+    "last_name",
+    "phone",
+    "email",
+    "location",
+    "window_type",
+    "quantity",
+    "width_cm",
+    "height_cm",
+    "finish",
+    "glass",
+    "notes",
+    "source",
+    "status",
+    "lead_value"
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Website Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "index_web_pages_for_search": 0,
+  "idx": 1
+}
