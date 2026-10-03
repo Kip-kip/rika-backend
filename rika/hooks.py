@@ -196,8 +196,7 @@ app_license = "mit"
 
 # Request Events
 # ----------------
-# before_request = ["rika.utils.before_request"]
-# after_request = ["rika.utils.after_request"]
+before_request = ["rika.hook_setup.before_request"]
 
 # Job Events
 # ----------
