@@ -4,18 +4,30 @@ import frappe
 from .auth import _require_user
 
 STAGES = ["Measurement", "Design", "Approval", "Fabrication", "Installation", "Handover"]
+# stage -> DocType date fieldname
+STAGE_FIELDS = {
+    "Measurement": "date_measurement",
+    "Design": "date_design",
+    "Approval": "date_approval",
+    "Fabrication": "date_fabrication",
+    "Installation": "date_installation",
+    "Handover": "date_handover",
+}
 ADMIN_TOKEN_ENV = "RIKA_ADMIN_TOKEN"
 
 
+def _stage_dates_dict(doc):
+    """Read stage dates from the per-stage Date fields (canonical)."""
+    sd = {}
+    for stage, field in STAGE_FIELDS.items():
+        v = getattr(doc, field, None)
+        if v:
+            sd[stage] = v
+    return sd
+
+
 def _project_payload(doc):
-    sd = doc.stage_dates
-    if isinstance(sd, str):
-        try:
-            sd = json.loads(sd)
-        except (ValueError, TypeError):
-            sd = {}
-    if not isinstance(sd, dict):
-        sd = {}
+    sd = _stage_dates_dict(doc)
 
     cur_idx = STAGES.index(doc.stage) if doc.stage in STAGES else 0
     stages = []
@@ -35,8 +47,8 @@ def _project_payload(doc):
         "stage_index": cur_idx,
         "stages": stages,
         "deposit_paid": bool(doc.deposit_paid),
-        "install_date": doc.install_date,
-        "handover_date": doc.handover_date,
+        "install_date": doc.date_installation,
+        "handover_date": doc.date_handover,
         "warranty_expires": doc.warranty_expires,
         "notes": doc.notes,
     }
@@ -83,21 +95,15 @@ def create_demo_project():
     from frappe.utils import nowdate, add_days
 
     base = nowdate()
-    stage_dates = {
-        "Measurement": base,
-        "Design": add_days(base, 7),
-        "Approval": add_days(base, 14),
-        "Fabrication": None,
-        "Installation": None,
-        "Handover": None,
-    }
     doc = frappe.get_doc({
         "doctype": "Rika Project",
         "naming_series": "RIKA-PROJ-",
         "project_name": "Demo — 3-Bed Windows",
         "location": location,
         "stage": "Approval",
-        "stage_dates": json.dumps(stage_dates),
+        "date_measurement": base,
+        "date_design": add_days(base, 7),
+        "date_approval": add_days(base, 14),
         "deposit_paid": 0,
         "notes": "Demo project seeded for the customer dashboard. 12 openings: 6 sliding, 4 casement, 2 fixed. Budget KSh 111,700 (from the house-map tool).",
     })
@@ -133,12 +139,12 @@ def list_projects():
 
 @frappe.whitelist(allow_guest=True)
 def update_project():
-    """POST /rika/api/admin/projects — update a project's stage (admin).
+    """POST /rika/api/admin/projects/update — update a project's stage (admin).
 
-    Body: name, stage?, stage_dates? (JSON dict or object), deposit_paid?,
-          install_date?, handover_date?, warranty_expires?, notes?
-    stage_dates entries are merged with the existing blob; passing a date
-    of "" for a stage clears that date.
+    Body: name, stage?, plus any of:
+          date_measurement, date_design, date_approval, date_fabrication,
+          date_installation, date_handover (YYYY-MM-DD or "" to clear),
+          deposit_paid?, warranty_expires?, notes?
     """
     _require_admin()
     d = frappe.form_dict
@@ -148,29 +154,6 @@ def update_project():
 
     doc = frappe.get_doc("Rika Project", name)
 
-    # Load existing stage_dates
-    sd = doc.stage_dates
-    if isinstance(sd, str):
-        try:
-            sd = json.loads(sd)
-        except (ValueError, TypeError):
-            sd = {}
-    if not isinstance(sd, dict):
-        sd = {}
-
-    # Merge new stage_dates if provided
-    new_sd = d.get("stage_dates")
-    if new_sd:
-        if isinstance(new_sd, str):
-            try:
-                new_sd = json.loads(new_sd)
-            except (ValueError, TypeError):
-                frappe.throw("stage_dates must be a JSON object.", frappe.ValidationError)
-        if isinstance(new_sd, dict):
-            for k, v in new_sd.items():
-                if k in STAGES:
-                    sd[k] = (v or None) if v else None
-
     # Update stage
     stage = (d.get("stage") or "").strip()
     if stage:
@@ -178,19 +161,19 @@ def update_project():
             frappe.throw(f"Invalid stage. Must be one of: {', '.join(STAGES)}", frappe.ValidationError)
         doc.stage = stage
 
+    # Update per-stage dates (set or clear)
+    for stage, field in STAGE_FIELDS.items():
+        if d.get(stage) is not None:
+            setattr(doc, field, d.get(stage) or None)
+
     # Optional fields
     if d.get("deposit_paid") is not None:
         doc.deposit_paid = 1 if str(d.get("deposit_paid")).lower() in ("1", "true", "yes") else 0
-    if d.get("install_date"):
-        doc.install_date = d.get("install_date")
-    if d.get("handover_date"):
-        doc.handover_date = d.get("handover_date")
     if d.get("warranty_expires"):
         doc.warranty_expires = d.get("warranty_expires")
     if d.get("notes") is not None:
         doc.notes = d.get("notes")
 
-    doc.stage_dates = json.dumps(sd)
     doc.save(ignore_permissions=True)
     frappe.db.commit()
 

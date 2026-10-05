@@ -12,10 +12,14 @@
   "project_name",
   "location",
   "stage",
+  "date_measurement",
+  "date_design",
+  "date_approval",
+  "date_fabrication",
+  "date_installation",
+  "date_handover",
   "stage_dates",
   "deposit_paid",
-  "install_date",
-  "handover_date",
   "warranty_expires",
   "notes",
   "naming_series"
@@ -58,10 +62,47 @@
    "width": "Half"
   },
   {
-   "description": "JSON: {stage: 'YYYY-MM-DD', ...}",
+   "fieldname": "date_measurement",
+   "fieldtype": "Date",
+   "label": "Measurement Date",
+   "width": "Half"
+  },
+  {
+   "fieldname": "date_design",
+   "fieldtype": "Date",
+   "label": "Design Date",
+   "width": "Half"
+  },
+  {
+   "fieldname": "date_approval",
+   "fieldtype": "Date",
+   "label": "Approval Date",
+   "width": "Half"
+  },
+  {
+   "fieldname": "date_fabrication",
+   "fieldtype": "Date",
+   "label": "Fabrication Date",
+   "width": "Half"
+  },
+  {
+   "fieldname": "date_installation",
+   "fieldtype": "Date",
+   "label": "Installation Date",
+   "width": "Half"
+  },
+  {
+   "fieldname": "date_handover",
+   "fieldtype": "Date",
+   "label": "Handover Date",
+   "width": "Half"
+  },
+  {
+   "description": "Legacy JSON: {stage: 'YYYY-MM-DD', ...}. Prefer the individual Date fields above.",
    "fieldname": "stage_dates",
    "fieldtype": "JSON",
-   "label": "Stage Dates",
+   "label": "Stage Dates (legacy)",
+   "read_only": 1,
    "width": "Full"
   },
   {
@@ -69,18 +110,6 @@
    "fieldname": "deposit_paid",
    "fieldtype": "Check",
    "label": "Deposit Paid",
-   "width": "Half"
-  },
-  {
-   "fieldname": "install_date",
-   "fieldtype": "Date",
-   "label": "Install Date",
-   "width": "Half"
-  },
-  {
-   "fieldname": "handover_date",
-   "fieldtype": "Date",
-   "label": "Handover Date",
    "width": "Half"
   },
   {
@@ -108,7 +137,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-10-02 20:28:19.877232",
+ "modified": "2026-10-05 13:36:00.000000",
  "modified_by": "Administrator",
  "module": "Rika",
  "name": "Rika Project",
