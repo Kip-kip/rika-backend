@@ -1,0 +1,143 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-10-02 20:28:18.700899",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "lead",
+  "customer_name",
+  "phone",
+  "location",
+  "tier",
+  "line_items",
+  "total_low",
+  "total_high",
+  "ref_code",
+  "status",
+  "submitted_at",
+  "notes",
+  "naming_series"
+ ],
+ "fields": [
+  {
+   "fieldname": "lead",
+   "fieldtype": "Link",
+   "label": "Lead",
+   "options": "Rika Lead",
+   "width": "Full"
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "width": "Half"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "width": "Half"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location",
+   "width": "Half"
+  },
+  {
+   "fieldname": "tier",
+   "fieldtype": "Select",
+   "label": "Tier",
+   "options": "Essential\nComfort\nPremium",
+   "width": "Half"
+  },
+  {
+   "description": "JSON array: [{type, width_m, height_m, qty, profile, glass, finish, unit_price, total}]",
+   "fieldname": "line_items",
+   "fieldtype": "JSON",
+   "label": "Line Items",
+   "width": "Full"
+  },
+  {
+   "fieldname": "total_low",
+   "fieldtype": "Currency",
+   "label": "Total (Low)",
+   "width": "Half"
+  },
+  {
+   "fieldname": "total_high",
+   "fieldtype": "Currency",
+   "label": "Total (High)",
+   "width": "Half"
+  },
+  {
+   "description": "Client-generated e.g. RIKA-4F7A-2C91",
+   "fieldname": "ref_code",
+   "fieldtype": "Data",
+   "label": "Reference Code",
+   "width": "Half"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSent\nAccepted\nDeclined\nClosed",
+   "width": "Half"
+  },
+  {
+   "default": "Now",
+   "fieldname": "submitted_at",
+   "fieldtype": "Datetime",
+   "label": "Submitted At",
+   "width": "Half"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "Notes",
+   "width": "Full"
+  },
+  {
+   "default": "RIKA-QUOTE-",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "RIKA-QUOTE-",
+   "width": "Full"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-10-02 20:28:19.476613",
+ "modified_by": "Administrator",
+ "module": "Rika",
+ "name": "Rika Quotation",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

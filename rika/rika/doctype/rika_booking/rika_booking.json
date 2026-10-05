@@ -1,0 +1,130 @@
+{
+ "name": "Rika Booking",
+ "module": "Rika",
+ "description": "A free-measurement booking request from the Rika website.",
+ "type": "Document",
+ "fields": [
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "Full Name",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "project_type",
+   "fieldtype": "Select",
+   "label": "Project Type",
+   "options": "Windows\nDoors\nBoth\nGlass & Glazing\nOther",
+   "default": "Windows",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "preferred_date",
+   "fieldtype": "Date",
+   "label": "Preferred Date",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "preferred_time",
+   "fieldtype": "Select",
+   "label": "Preferred Time",
+   "options": "Morning (8am-12pm)\nMidday (12pm-3pm)\nAfternoon (3pm-6pm)",
+   "default": "Morning (8am-12pm)",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "width_cm",
+   "fieldtype": "Float",
+   "label": "Estimated Width (cm)"
+  },
+  {
+   "fieldname": "height_cm",
+   "fieldtype": "Float",
+   "label": "Estimated Height (cm)"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Int",
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "source",
+   "fieldtype": "Select",
+   "label": "Source",
+   "options": "Measurement Tool\nCalculator\nWebsite\nWhatsApp\nPhone",
+   "default": "Website",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "New\nContacted\nConfirmed\nVisited\nCompleted\nCancelled",
+   "default": "New",
+   "in_list_view": 1
+  }
+ ],
+ "track_changes": 1,
+ "doctype": "DocType",
+ "issingle": 0,
+ "istable": 0,
+ "istState": 0,
+ "modified": "2026-10-02 07:55:00",
+ "owner": "Administrator",
+ "creation": "2026-10-02 07:55:00",
+ "modified_by": "Administrator",
+ "autoname": "hash",
+ "engine": "InnoDB",
+ "field_order": [
+  "first_name",
+  "phone",
+  "location",
+  "project_type",
+  "preferred_date",
+  "preferred_time",
+  "width_cm",
+  "height_cm",
+  "quantity",
+  "notes",
+  "source",
+  "status"
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Website Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "idx": 1
+}
