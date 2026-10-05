@@ -1,0 +1,98 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "hash",
+ "creation": "2026-10-05 17:35:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "project",
+  "customer_name",
+  "phone",
+  "sender",
+  "message",
+  "read_by_rika"
+ ],
+ "fields": [
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Rika Project",
+   "reqd": 1,
+   "in_list_view": 1,
+   "width": "Full"
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Customer Phone",
+   "read_only": 1,
+   "width": "Full"
+  },
+  {
+   "fieldname": "sender",
+   "fieldtype": "Select",
+   "label": "Sender",
+   "options": "Customer\nRika",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "message",
+   "fieldtype": "Small Text",
+   "label": "Message",
+   "reqd": 1,
+   "width": "Full"
+  },
+  {
+   "fieldname": "read_by_rika",
+   "fieldtype": "Check",
+   "label": "Read by Rika",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_child_table": 0,
+ "istable": 0,
+ "name": "Rika Message",
+ "module": "Rika",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Rika Admin",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "ASC",
+ "states": []
+}
