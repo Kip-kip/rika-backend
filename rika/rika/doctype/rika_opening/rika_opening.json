@@ -1,0 +1,100 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-05 21:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "label",
+  "type",
+  "width",
+  "height",
+  "qty",
+  "finish",
+  "glass",
+  "photo",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "label",
+   "fieldtype": "Data",
+   "label": "Label",
+   "reqd": 1,
+   "in_list_view": 1,
+   "width": "20%"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Sliding Window\nCasement Window\nFixed Window\nBay Window\nSliding Door\nHinged Door\nShopfront\nPartition",
+   "reqd": 1,
+   "in_list_view": 1,
+   "width": "20%"
+  },
+  {
+   "fieldname": "width",
+   "fieldtype": "Float",
+   "label": "Width (mm)",
+   "reqd": 1,
+   "in_list_view": 1,
+   "width": "12%"
+  },
+  {
+   "fieldname": "height",
+   "fieldtype": "Float",
+   "label": "Height (mm)",
+   "reqd": 1,
+   "in_list_view": 1,
+   "width": "12%"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "label": "Qty",
+   "default": "1",
+   "in_list_view": 1,
+   "width": "8%"
+  },
+  {
+   "fieldname": "finish",
+   "fieldtype": "Select",
+   "label": "Finish",
+   "options": "Black\nWhite\nBrown\nSilver\nCustom",
+   "in_list_view": 1,
+   "width": "12%"
+  },
+  {
+   "fieldname": "glass",
+   "fieldtype": "Select",
+   "label": "Glass",
+   "options": "Clear\nTinted\nFrosted\nDouble Glazed\nAnti-burglar",
+   "in_list_view": 1,
+   "width": "12%"
+  },
+  {
+   "fieldname": "photo",
+   "fieldtype": "Attach Image",
+   "label": "Photo",
+   "width": "20%"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes",
+   "width": "20%"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "is_child_table": 1,
+ "istable": 1,
+ "name": "Rika Opening",
+ "module": "Rika",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "ASC",
+ "states": []
+}
