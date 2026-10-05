@@ -1,0 +1,120 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "hash",
+ "creation": "2026-10-05 20:45:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "project",
+  "amount",
+  "paybill",
+  "account",
+  "transaction_ref",
+  "status",
+  "receipt_no",
+  "paid_at",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Rika Project",
+   "reqd": 1,
+   "in_list_view": 1,
+   "width": "Half"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "options": "KES",
+   "reqd": 1,
+   "in_list_view": 1,
+   "width": "Half"
+  },
+  {
+   "fieldname": "paybill",
+   "fieldtype": "Data",
+   "label": "Paybill",
+   "width": "Half"
+  },
+  {
+   "fieldname": "account",
+   "fieldtype": "Data",
+   "label": "Account",
+   "width": "Half"
+  },
+  {
+   "fieldname": "transaction_ref",
+   "fieldtype": "Data",
+   "label": "Transaction Ref",
+   "width": "Half"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nCompleted\nFailed\nExpired",
+   "default": "Pending",
+   "in_list_view": 1,
+   "width": "Half"
+  },
+  {
+   "fieldname": "receipt_no",
+   "fieldtype": "Data",
+   "label": "Receipt No",
+   "width": "Half"
+  },
+  {
+   "fieldname": "paid_at",
+   "fieldtype": "Datetime",
+   "label": "Paid At",
+   "width": "Half"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "Notes",
+   "width": "Full"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_child_table": 0,
+ "istable": 0,
+ "name": "Rika Deposit",
+ "module": "Rika",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Rika Admin",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
