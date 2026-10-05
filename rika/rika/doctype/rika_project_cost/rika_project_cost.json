@@ -1,0 +1,168 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "hash",
+ "creation": "2026-10-05 19:26:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "project",
+  "selling_price",
+  "col--",
+  "cost_aluminium",
+  "cost_glass",
+  "cost_hardware",
+  "cost_fabrication",
+  "cost_installation",
+  "cost_transport",
+  "cost_wastage",
+  "cost_marketing",
+  "col--1",
+  "total_cost",
+  "gross_profit",
+  "margin_pct",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Rika Project",
+   "reqd": 1,
+   "in_list_view": 1,
+   "width": "Full"
+  },
+  {
+   "fieldname": "selling_price",
+   "fieldtype": "Currency",
+   "label": "Selling Price",
+   "in_list_view": 1,
+   "reqd": 1,
+   "width": "Half"
+  },
+  {
+   "fieldname": "col--",
+   "fieldtype": "Column Break",
+   "width": "Half"
+  },
+  {
+   "fieldname": "cost_aluminium",
+   "fieldtype": "Currency",
+   "label": "Aluminium",
+   "width": "Half"
+  },
+  {
+   "fieldname": "cost_glass",
+   "fieldtype": "Currency",
+   "label": "Glass",
+   "width": "Half"
+  },
+  {
+   "fieldname": "cost_hardware",
+   "fieldtype": "Currency",
+   "label": "Hardware / Fittings",
+   "width": "Half"
+  },
+  {
+   "fieldname": "cost_fabrication",
+   "fieldtype": "Currency",
+   "label": "Fabrication",
+   "width": "Half"
+  },
+  {
+   "fieldname": "cost_installation",
+   "fieldtype": "Currency",
+   "label": "Installation",
+   "width": "Half"
+  },
+  {
+   "fieldname": "cost_transport",
+   "fieldtype": "Currency",
+   "label": "Transport",
+   "width": "Half"
+  },
+  {
+   "fieldname": "cost_wastage",
+   "fieldtype": "Currency",
+   "label": "Wastage",
+   "width": "Half"
+  },
+  {
+   "fieldname": "cost_marketing",
+   "fieldtype": "Currency",
+   "label": "Marketing",
+   "width": "Half"
+  },
+  {
+   "fieldname": "col--1",
+   "fieldtype": "Column Break",
+   "width": "Half"
+  },
+  {
+   "fieldname": "total_cost",
+   "fieldtype": "Currency",
+   "label": "Total Cost",
+   "read_only": 1,
+   "in_list_view": 1,
+   "width": "Half"
+  },
+  {
+   "fieldname": "gross_profit",
+   "fieldtype": "Currency",
+   "label": "Gross Profit",
+   "read_only": 1,
+   "in_list_view": 1,
+   "width": "Half"
+  },
+  {
+   "fieldname": "margin_pct",
+   "fieldtype": "Percent",
+   "label": "Margin %",
+   "read_only": 1,
+   "width": "Half"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes",
+   "width": "Full"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_child_table": 0,
+ "istable": 0,
+ "name": "Rika Project Cost",
+ "module": "Rika",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Rika Admin",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "ASC",
+ "states": []
+}
