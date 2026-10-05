@@ -90,3 +90,46 @@ def create_quotation():
         "ref": (data.get("ref") or "").strip() or doc.name,
         "name": doc.name,
     }
+
+
+@frappe.whitelist(allow_guest=True)
+def list_my_quotations():
+    """GET /rika/api/my-quotations — the logged-in customer's quotations."""
+    import json
+    from .auth import _require_user
+
+    user = _require_user()
+    phone = frappe.db.get_value("Rika Customer", {"user": user}, "phone")
+    if not phone:
+        return {"ok": True, "quotations": []}
+
+    out = []
+    for row in frappe.get_all(
+        "Rika Quotation",
+        {"phone": phone},
+        ["name", "customer_name", "location", "tier", "line_items", "total_low", "total_high", "ref_code", "status", "submitted_at", "notes"],
+        order_by="creation desc",
+        limit=50,
+    ):
+        items = []
+        if row.line_items:
+            try:
+                raw = json.loads(row.line_items)
+                if isinstance(raw, list):
+                    items = raw
+            except (ValueError, TypeError):
+                items = []
+        out.append({
+            "name": row.name,
+            "ref_code": row.ref_code,
+            "customer_name": row.customer_name,
+            "location": row.location,
+            "tier": row.tier,
+            "total_low": row.total_low,
+            "total_high": row.total_high,
+            "status": row.status,
+            "submitted_at": row.submitted_at,
+            "notes": row.notes,
+            "line_items": items,
+        })
+    return {"ok": True, "quotations": out}

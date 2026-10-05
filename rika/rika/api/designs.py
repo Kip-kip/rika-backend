@@ -103,3 +103,49 @@ def save_design():
         "lead": lead_name,
         "ref": design_name,
     }
+
+
+@frappe.whitelist(allow_guest=True)
+def list_my_designs():
+    """GET /rika/api/my-designs — the logged-in customer's saved designs."""
+    from .auth import _require_user
+
+    user = _require_user()
+    phone = frappe.db.get_value("Rika Customer", {"user": user}, "phone")
+    if not phone:
+        return {"ok": True, "designs": []}
+
+    out = []
+    for row in frappe.get_all(
+        "Rika Design",
+        {"phone": phone},
+        ["name", "source_tool", "config", "estimate_low", "estimate_high", "saved_at", "status", "notes"],
+        order_by="creation desc",
+        limit=50,
+    ):
+        cfg = {}
+        if row.config:
+            try:
+                cfg = json.loads(row.config)
+            except (ValueError, TypeError):
+                cfg = {}
+        if not isinstance(cfg, dict):
+            cfg = {}
+        out.append({
+            "name": row.name,
+            "source_tool": row.source_tool,
+            "saved_at": row.saved_at,
+            "status": row.status,
+            "notes": row.notes,
+            "product": cfg.get("product"),
+            "width_cm": cfg.get("width_cm"),
+            "height_cm": cfg.get("height_cm"),
+            "quantity": cfg.get("quantity"),
+            "finish": cfg.get("finish"),
+            "glass": cfg.get("glass"),
+            "tier": cfg.get("tier"),
+            "addons": cfg.get("addons"),
+            "estimate_low": row.estimate_low,
+            "estimate_high": row.estimate_high,
+        })
+    return {"ok": True, "designs": out}
