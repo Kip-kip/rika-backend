@@ -25,13 +25,45 @@ def _production_order_payload(doc):
     }
 
 
+def _scrubbed_project(doc):
+    """Fabricator-safe project view: name + area only, never customer contact details.
+
+    The raw `location` field is a customer phone number (+254…), which the
+    fabricator must never see (T-B5-02 customer-relationship protection).
+    Returns just the city/area tail, or a generic label if unparseable.
+    """
+    loc = (doc.location or "").strip()
+    if loc.startswith("+"):
+        return "Deliver-to (contact via Rika)"
+    return loc or "—"
+
+
 @frappe.whitelist(allow_guest=True)
 def list_orders():
-    """GET /rika/api/fabricator/orders — list production orders (admin)."""
+    """GET /rika/api/fabricator/orders — list production orders (admin token).
+
+    Always returns the fabricator-safe view: customer contact info (phone,
+    name) is never exposed to the fabricator, per T-B5-02.
+    """
     _require_admin()
     rows = frappe.get_all("Rika Production Order", fields=["name"], order_by="creation desc")
-    docs = [frappe.get_doc("Rika Production Order", r.name) for r in rows]
-    return {"ok": True, "orders": [_production_order_payload(d) for d in docs]}
+    out = []
+    for r in rows:
+        d = frappe.get_doc("Rika Production Order", r.name)
+        p = None
+        try:
+            p = frappe.get_doc("Rika Project", d.project)
+        except frappe.DoesNotExistError:
+            pass
+        item = _production_order_payload(d)
+        if p:
+            item["project_name"] = p.project_name
+            item["delivery_area"] = _scrubbed_project(p)
+        else:
+            item["project_name"] = d.project
+            item["delivery_area"] = "—"
+        out.append(item)
+    return {"ok": True, "orders": out}
 
 
 @frappe.whitelist(allow_guest=True)
@@ -47,6 +79,7 @@ def create_order():
         frappe.throw("A production order already exists for this project.", frappe.ValidationError)
     doc = frappe.get_doc("Rika Project", project)
     p = frappe.new_doc("Rika Production Order")
+    p.naming_series = "RIKA-ORD-"
     p.project = project
     p.spec_summary = (d.get("spec_summary") or "").strip()
     p.status = "Pending"
@@ -90,6 +123,7 @@ def create_from_project():
     if pdoc.stage not in ("Approval", "Fabrication"):
         frappe.throw(f"Project is in stage {pdoc.stage}; must be Approval or Fabrication to create a production order.", frappe.ValidationError)
     p = frappe.new_doc("Rika Production Order")
+    p.naming_series = "RIKA-ORD-"
     p.project = project
     p.spec_summary = (d.get("spec_summary") or "").strip()
     p.status = "Pending"
