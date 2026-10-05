@@ -1,0 +1,99 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-10-05 18:35:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "project",
+  "order_no",
+  "spec_summary",
+  "status",
+  "notes",
+  "naming_series",
+  "naming_series"
+ ],
+ "fields": [
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Rika Project",
+   "reqd": 1,
+   "in_list_view": 1,
+   "width": "Full"
+  },
+  {
+   "fieldname": "order_no",
+   "fieldtype": "Data",
+   "label": "Order No",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "spec_summary",
+   "fieldtype": "Small Text",
+   "label": "Spec Summary",
+   "width": "Full"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nAccepted\nIn Production\nComplete\nCollected",
+   "default": "Pending",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes",
+   "width": "Full"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Data",
+   "label": "Naming Series",
+   "read_only": 1,
+   "width": "Full"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_child_table": 0,
+ "istable": 0,
+ "name": "Rika Production Order",
+ "module": "Rika",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Rika Admin",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "ASC",
+ "states": []
+}
