@@ -1,0 +1,110 @@
+{
+ "name": "Rika Event",
+ "module": "Rika",
+ "description": "Analytics event: pageview, tool usage, CTA click, lead, quote, design save.",
+ "type": "Document",
+ "fields": [
+  {
+   "fieldname": "event_type",
+   "fieldtype": "Select",
+   "label": "Event Type",
+   "options": "pageview\ntool_use\nconfig_change\ncta_click\nlead_created\nquote_created\ndesign_saved\nbooking_created\ndeposit_initiated\ndeposit_paid",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "tool",
+   "fieldtype": "Data",
+   "label": "Tool",
+   "description": "Which tool/page (calculator, visualizer, design, measure, quiz, build, house-map, house-windows, quote, guide, second-quote, compare, costs, products, locations, app)",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "page",
+   "fieldtype": "Data",
+   "label": "Page",
+   "description": "URL path (e.g. /rika/tools/calculator/)"
+  },
+  {
+   "fieldname": "source",
+   "fieldtype": "Data",
+   "label": "Referrer Source",
+   "description": "Referrer host or 'direct'"
+  },
+  {
+   "fieldname": "campaign",
+   "fieldtype": "Data",
+   "label": "Campaign",
+   "description": "UTM campaign"
+  },
+  {
+   "fieldname": "ref",
+   "fieldtype": "Data",
+   "label": "Reference",
+   "description": "Link to a lead/quote/design name if this event ties to one"
+  },
+  {
+   "fieldname": "session_id",
+   "fieldtype": "Data",
+   "label": "Session ID",
+   "description": "Browser session UUID (no PII)",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "device",
+   "fieldtype": "Select",
+   "label": "Device",
+   "options": "Mobile\nTablet\nDesktop"
+  },
+  {
+   "fieldname": "event_meta",
+   "fieldtype": "JSON",
+   "label": "Meta",
+   "description": "Arbitrary context (type, dims, qty, price_low, price_high, tier, etc.)"
+  },
+  {
+   "fieldname": "event_ts",
+   "fieldtype": "Datetime",
+   "label": "Event Timestamp",
+   "in_list_view": 1
+  }
+ ],
+ "track_changes": 0,
+ "doctype": "DocType",
+ "issingle": 0,
+ "istable": 0,
+ "istState": 0,
+ "modified": "2026-10-06 05:40:00",
+ "owner": "Administrator",
+ "creation": "2026-10-06 05:40:00",
+ "modified_by": "Administrator",
+ "autoname": "hash",
+ "engine": "InnoDB",
+ "field_order": [
+  "event_type",
+  "tool",
+  "page",
+  "source",
+  "campaign",
+  "ref",
+  "session_id",
+  "device",
+  "event_meta",
+  "event_ts"
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Website Manager",
+   "read": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "idx": 1
+}
