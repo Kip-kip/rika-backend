@@ -46,6 +46,14 @@ def submit_review():
 
     project = (d.get("project") or "").strip() or None
 
+    # If project is a title (not a valid doc name), try to resolve it
+    if project and not frappe.db.exists("Rika Project", project):
+        # Try to find by project_name or location match
+        match = frappe.db.get_all("Rika Project", {"project_name": ["like", f"%{project}%"]}, pluck="name", limit=1)
+        if not match:
+            match = frappe.db.get_all("Rika Project", {"location": ["like", f"%{project}%"]}, pluck="name", limit=1)
+        project = match[0] if match else None
+
     # If this phone already has a Pending review, update it in place (allows
     # the customer to correct their submission without hitting a hard block).
     from frappe.utils import getdate, add_to_date
@@ -75,8 +83,13 @@ def submit_review():
     doc.review_text = review_text
     doc.source = (d.get("source") or "Site Form").strip()
     doc.status = "Pending"
-    doc.insert(ignore_permissions=True)
-    frappe.db.commit()
+    try:
+        doc.insert(ignore_permissions=True)
+        frappe.db.commit()
+    except frappe.exceptions.LinkValidationError as e:
+        return {"ok": False, "message": str(e.message)}
+    except Exception as e:
+        return {"ok": False, "message": str(e)}
 
     return {"ok": True, "ref": doc.name, "message": "Thank you! We'll review your feedback shortly."}
 

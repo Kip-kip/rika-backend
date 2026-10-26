@@ -86,3 +86,28 @@ def get_study():
             "sections": sections,
         },
     }
+
+
+@frappe.whitelist(allow_guest=True)
+def get_project_reviews():
+    """GET /rika/api/case-studies/{project}/reviews — approved reviews for a project (no PII)."""
+    d = frappe.form_dict
+    project = (d.get("project") or "").strip()
+    if not project or not frappe.db.exists("Rika Project", project):
+        return {"ok": True, "reviews": []}
+    rows = frappe.get_all(
+        "Rika Review",
+        filters={"project": project, "status": ["in", ["Approved", "Posted"]]},
+        fields=["customer_name", "rating", "review_text", "creation"],
+        order_by="creation desc",
+        limit=10,
+    )
+    out = []
+    for r in rows:
+        out.append({
+            "name": r.customer_name,
+            "rating": r.rating,
+            "text": r.review_text,
+            "date": str(r.creation)[:10],
+        })
+    return {"ok": True, "reviews": out}
