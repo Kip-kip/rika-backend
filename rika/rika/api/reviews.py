@@ -32,30 +32,46 @@ def submit_review():
     review_text = (d.get("review_text") or "").strip()
 
     if not name:
-        frappe.throw("Name is required.", frappe.ValidationError)
+        return {"ok": False, "message": "Please enter your name."}
     if not phone:
-        frappe.throw("Phone is required.", frappe.ValidationError)
-    if not rating or int(rating) < 1 or int(rating) > 5:
-        frappe.throw("Rating must be between 1 and 5.", frappe.ValidationError)
+        return {"ok": False, "message": "Please enter your phone number."}
+    try:
+        rating_val = int(rating)
+    except (TypeError, ValueError):
+        return {"ok": False, "message": "Please select a star rating."}
+    if rating_val < 1 or rating_val > 5:
+        return {"ok": False, "message": "Rating must be between 1 and 5."}
     if not review_text:
-        frappe.throw("Please write a short review.", frappe.ValidationError)
-
-    # Prevent spam: one review per phone per 24h
-    from frappe.utils import getdate, add_to_date
-    cutoff = add_to_date(getdate(), days=-1)
-    existing = frappe.db.exists("Rika Review", {
-        "phone": phone,
-        "creation": [">=", str(cutoff)],
-    })
-    if existing:
-        frappe.throw("You've already submitted a review recently. Thank you!", frappe.ValidationError)
+        return {"ok": False, "message": "Please write a short review."}
 
     project = (d.get("project") or "").strip() or None
+
+    # If this phone already has a Pending review, update it in place (allows
+    # the customer to correct their submission without hitting a hard block).
+    from frappe.utils import getdate, add_to_date
+    cutoff = add_to_date(getdate(), days=-1)
+    existing = frappe.db.get_all("Rika Review", {
+        "phone": phone,
+        "status": "Pending",
+        "creation": [">=", str(cutoff)],
+    }, pluck="name")
+
+    if existing:
+        doc = frappe.get_doc("Rika Review", existing[0])
+        doc.customer_name = name
+        doc.project = project
+        doc.rating = rating_val
+        doc.review_text = review_text
+        doc.source = (d.get("source") or "Site Form").strip()
+        doc.save(ignore_permissions=True)
+        frappe.db.commit()
+        return {"ok": True, "ref": doc.name, "message": "Thank you! Your review has been updated."}
+
     doc = frappe.new_doc("Rika Review")
     doc.customer_name = name
     doc.phone = phone
     doc.project = project
-    doc.rating = int(rating)
+    doc.rating = rating_val
     doc.review_text = review_text
     doc.source = (d.get("source") or "Site Form").strip()
     doc.status = "Pending"
