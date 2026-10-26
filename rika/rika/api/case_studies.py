@@ -11,6 +11,7 @@ STAGE_LABELS = {
     "Handover": "Finished",
     "Fabrication": "Fabrication",
     "Approval": "Approval",
+    "Cover": "Cover",
 }
 
 
@@ -37,10 +38,12 @@ def list_studies():
         )
         if not photos:
             continue
+        cover = next((ph.image for ph in photos if ph.stage == "Cover"), photos[0].image)
         out.append({
             "project": p,
             "name": proj.project_name or p,
             "stage": proj.stage,
+            "cover": cover,
             "photo_count": len(photos),
             "stages": sorted({ph.stage for ph in photos if ph.stage in STAGES}),
         })
