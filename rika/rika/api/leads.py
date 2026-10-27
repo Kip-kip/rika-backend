@@ -104,3 +104,44 @@ def funnel():
         for k in total:
             total[k] += v[k]
     return {"ok": True, "funnel": out, "total": total}
+
+
+@frappe.whitelist(allow_guest=True)
+def create_lead():
+    """POST /rika/api/create-lead — guest lead capture (name/phone/email/source/notes)."""
+    d = frappe.form_dict
+    first_name = (d.get("first_name") or d.get("name") or "").strip()
+    last_name = (d.get("last_name") or "").strip()
+    phone = (d.get("phone") or "").strip()
+    if not first_name:
+        frappe.throw("Name is required.", frappe.ValidationError)
+    if not phone:
+        frappe.throw("Phone number is required.", frappe.ValidationError)
+    source = (d.get("source") or "Website").strip()
+    if source not in SOURCES:
+        source = "Website"
+    # dedupe: same phone → update, not duplicate
+    existing = frappe.db.get_value("Rika Lead", {"phone": phone}, "name")
+    if existing:
+        doc = frappe.get_doc("Rika Lead", existing)
+        doc.last_name = last_name or doc.last_name
+        if d.get("email"):
+            doc.email = (d.get("email") or "").strip()
+        if d.get("notes"):
+            doc.notes = (d.get("notes") or "").strip()
+        doc.source = source
+        doc.db_update()
+        return {"ok": True, "ref": doc.name, "updated": True}
+    doc = frappe.new_doc("Rika Lead")
+    doc.first_name = first_name
+    doc.last_name = last_name
+    doc.phone = phone
+    if d.get("email"):
+        doc.email = (d.get("email") or "").strip()
+    doc.source = source
+    if d.get("notes"):
+        doc.notes = (d.get("notes") or "").strip()
+    doc.status = "New"
+    doc.insert(ignore_permissions=True)
+    doc.db_set("status", "New", commit=False)
+    return {"ok": True, "ref": doc.name}
