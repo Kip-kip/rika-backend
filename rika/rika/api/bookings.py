@@ -9,7 +9,14 @@ def create_booking():
     /api/method/rika/api/bookings/create_booking).
     Maps the JSON body to a Rika Booking document.
     """
-    data = frappe.form_dict
+    # Read the request body: the frontend POSTs JSON (Content-Type: application/json),
+    # which frappe.form_dict does NOT populate (it only covers form-encoded bodies).
+    import json as _json
+    try:
+        raw = frappe.request.get_data(as_text=True) or ""
+        data = frappe._dict(_json.loads(raw) if raw else {})
+    except Exception:
+        data = frappe.form_dict
 
     name = (data.get("name") or "").strip()
     phone = (data.get("phone") or "").strip()
