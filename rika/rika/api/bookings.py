@@ -52,6 +52,12 @@ def create_booking():
         else:
             slot = "Morning (8am-12pm)"
 
+    # Sanitize source: only values allowed by the Rika Booking DocType
+    allowed_sources = ["Measurement Tool", "Calculator", "Website", "WhatsApp", "Phone", "Prices Page", "Case Studies", "Case Study", "Reviews", "Locations", "Products", "Tools"]
+    src = (data.get("source") or "Website").strip() or "Website"
+    if src not in allowed_sources:
+        src = "Website"
+
     width = data.get("width_cm")
     height = data.get("height_cm")
     qty = data.get("quantity")
@@ -68,7 +74,7 @@ def create_booking():
         "height_cm": float(height) if height else None,
         "quantity": int(qty) if qty else None,
         "notes": (data.get("notes") or "").strip() or None,
-        "source": (data.get("source") or "Website").strip() or "Website",
+        "source": src,
         "status": "New",
     })
     doc.insert(ignore_permissions=True)

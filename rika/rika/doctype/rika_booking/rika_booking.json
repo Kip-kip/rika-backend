@@ -72,7 +72,7 @@
    "fieldname": "source",
    "fieldtype": "Select",
    "label": "Source",
-   "options": "Measurement Tool\nCalculator\nWebsite\nWhatsApp\nPhone",
+   "options": "Measurement Tool\nCalculator\nWebsite\nWhatsApp\nPhone\nPrices Page\nCase Studies\nCase Study\nReviews\nLocations\nProducts\nTools",
    "default": "Website",
    "in_list_view": 1
   },
