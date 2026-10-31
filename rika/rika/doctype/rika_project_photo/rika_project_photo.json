@@ -11,7 +11,10 @@
   "stage",
   "image",
   "caption",
-  "published"
+  "published",
+  "product_type",
+  "product_category",
+  "image_role"
  ],
  "fields": [
   {
@@ -50,6 +53,32 @@
    "fieldtype": "Check",
    "label": "Published",
    "default": "0"
+  },
+  {
+   "fieldname": "product_type",
+   "fieldtype": "Select",
+   "label": "Product Style",
+   "options": "sliding\ncasement\nfixed\nbay\nhinged\npartition\nshopfront\nglass\ndoor",
+   "in_list_view": 1,
+   "width": "Half",
+   "description": "Specific style within the category (sliding, casement, fixed, etc.)"
+  },
+  {
+   "fieldname": "product_category",
+   "fieldtype": "Select",
+   "label": "Product Category",
+   "options": "window\ndoor\nglass\nshopfront\npartition",
+   "in_list_view": 1,
+   "width": "Half",
+   "description": "Top-level product category (window / door / glass / shopfront / partition). Product Type below is the specific style within the category."
+  },
+  {
+   "fieldname": "image_role",
+   "fieldtype": "Select",
+   "label": "Image Role",
+   "options": "project\nproduct",
+   "default": "project",
+   "description": "project = real install photo (samples grid). product = marketing shot for the product-page lightbox."
   }
  ],
  "index_web_pages_for_search": 1,
