@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "hash",
- "creation": "2026-10-05 19:40:00.000000",
+ "creation": "2026-10-05 19:40:00",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -20,19 +20,19 @@
   {
    "fieldname": "project",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Project",
    "options": "Rika Project",
    "reqd": 1,
-   "in_list_view": 1,
    "width": "Half"
   },
   {
    "fieldname": "stage",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Stage",
    "options": "Cover\nMeasurement\nDesign\nApproval\nFabrication\nInstallation\nHandover",
    "reqd": 1,
-   "in_list_view": 1,
    "width": "Half"
   },
   {
@@ -49,43 +49,44 @@
    "width": "Full"
   },
   {
+   "default": "0",
    "fieldname": "published",
    "fieldtype": "Check",
-   "label": "Published",
-   "default": "0"
+   "label": "Published"
   },
   {
+   "description": "Specific style within the category (sliding, casement, fixed, etc.)",
    "fieldname": "product_type",
    "fieldtype": "Select",
-   "label": "Product Style",
-   "options": "sliding\ncasement\nfixed\nbay\nhinged\npartition\nshopfront\nglass\ndoor",
    "in_list_view": 1,
-   "width": "Half",
-   "description": "Specific style within the category (sliding, casement, fixed, etc.)"
+   "label": "Product Style",
+   "options": "sliding\ncasement\nfixed\nbay\nhinged",
+   "width": "Half"
   },
   {
+   "description": "Top-level product category (window / door / glass / shopfront / partition). Product Type below is the specific style within the category.",
    "fieldname": "product_category",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Product Category",
    "options": "window\ndoor\nglass\nshopfront\npartition",
-   "in_list_view": 1,
-   "width": "Half",
-   "description": "Top-level product category (window / door / glass / shopfront / partition). Product Type below is the specific style within the category."
+   "width": "Half"
   },
   {
+   "default": "project",
+   "description": "project = real install photo (samples grid). product = marketing shot for the product-page lightbox.",
    "fieldname": "image_role",
    "fieldtype": "Select",
    "label": "Image Role",
-   "options": "project\nproduct",
-   "default": "project",
-   "description": "project = real install photo (samples grid). product = marketing shot for the product-page lightbox."
+   "options": "project\nproduct"
   }
  ],
  "index_web_pages_for_search": 1,
- "is_child_table": 0,
- "istable": 0,
- "name": "Rika Project Photo",
+ "links": [],
+ "modified": "2026-11-02 17:41:28.672624",
+ "modified_by": "Administrator",
  "module": "Rika",
+ "name": "Rika Project Photo",
  "owner": "Administrator",
  "permissions": [
   {
@@ -113,6 +114,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "creation",
  "sort_order": "ASC",
  "states": []
